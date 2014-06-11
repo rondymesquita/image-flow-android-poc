@@ -1,0 +1,11 @@
+# incremental data. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1401023047000 143 702dce2427a254017737d625a4594114c7947fe8 /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/imageflow/application/ImageApplication.java
+1401023366000 1996 c15ef5a86b931d98d6a007456151c6fbd0099446 /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/imageflow/adapter/ImageAdapter.java
+1401018627000 55 f87b6c34cb98045a079b3efb2ac499cd374b851a /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/utils/ImageUtils.java
+1401019991000 1280 9a81966cc2cd63e3ab836381bb3618f10e7066d4 /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/imageflow/ImageFlowFragment.java
+1401023882000 225 ba88e12c914ef5bb4ebba63530b50d6fdfef4b50 /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/imageflow/application/ImageApplicationImpl.java
+1401028504000 76 34b4c17bcb39f6a87bf60b1448dfbee215d37a62 /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/imageflow/connection/DesktopprConnection.java
+1401027776000 1232 65a5e83d02067f3938a74d0d188ac2cc5dbbb771 /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/imageflow/MainActivity.java
+1400421675000 215 7453d8da3bea9f19de850813e038712dc36dec2d /Users/rondymesquita/Documents/Desenvolvimento/Eclipse/workspace-android/ImageFlow/src/br/com/utils/ViewUtils.java
