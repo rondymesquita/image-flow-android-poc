@@ -1,14 +1,13 @@
 package br.com.imageflow;
 
-import br.com.imageflow.adapter.ImageAdapter;
-import br.com.imageflow.application.ImageApplicationImpl;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.Toast;
+import br.com.imageflow.adapter.ImageAdapter;
+import br.com.imageflow.application.ImageApplicationImpl;
 
 public class FavoritesFragment extends Fragment {
 
@@ -20,7 +19,7 @@ public class FavoritesFragment extends Fragment {
 	}
 
 	public static Fragment getInstance() {
-		// if(fragment == null)
+		 if(fragment == null)
 		fragment = new FavoritesFragment();
 		return fragment;
 	}
@@ -32,10 +31,11 @@ public class FavoritesFragment extends Fragment {
 				container, false);
 		GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
 		ImageApplicationImpl application = ImageApplicationImpl.getInstance();
-
-		imageAdapter = new ImageAdapter(getActivity(), application.list());
-		imageAdapter.getLongPresseItemView();
-		gridView.setAdapter(imageAdapter);
+		
+		if(!application.list().isEmpty()){
+			imageAdapter = new ImageAdapter(getActivity(), application.list());
+			gridView.setAdapter(imageAdapter);
+		}
 
 		return rootView;
 	}
