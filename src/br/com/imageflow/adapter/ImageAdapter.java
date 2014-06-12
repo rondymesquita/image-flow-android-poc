@@ -2,13 +2,14 @@ package br.com.imageflow.adapter;
 
 import java.util.Random;
 
-import android.R;
+import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import br.com.imageflow.R;
 
 import com.squareup.picasso.Picasso;
 
@@ -46,23 +47,41 @@ public class ImageAdapter extends BaseAdapter {
 	// return imageView;
 	// }
 
+//	@Override
+//	public View getView(int position, View convertView, ViewGroup parent) {
+//
+//		ImageView imageView;
+//
+////		if (convertView == null) {
+//			imageView = new ImageView(mContext);
+////			imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+//			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+////			imageView.setPadding(8, 8, 8, 8);
+////		} else {
+////			imageView = (ImageView) convertView;
+////		}
+//
+//		String url = mURLImages[position];
+//		Picasso.with(mContext).load(url).into(imageView);
+//		return imageView;
+//	}
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View gridView;
+		LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+		
+		if(convertView == null){
+			gridView = new View(mContext);
+			gridView = inflater.inflate(R.layout.row_grid, null);
+			ImageView imageView = (ImageView)gridView.findViewById(R.id.image);
+			Picasso.with(mContext).load(mURLImages[generateRandom(0, 6)]).into(imageView);
+		}else{
+			gridView = (View) convertView;
+		}
+		
+		return gridView;
 
-		ImageView imageView;
-
-//		if (convertView == null) {
-			imageView = new ImageView(mContext);
-//			imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//			imageView.setPadding(8, 8, 8, 8);
-//		} else {
-//			imageView = (ImageView) convertView;
-//		}
-
-		String url = mURLImages[position];
-		Picasso.with(mContext).load(url).into(imageView);
-		return imageView;
 	}
 
 	public static int generateRandom(int min, int max) {
@@ -81,10 +100,4 @@ public class ImageAdapter extends BaseAdapter {
 			"http://wallpapers.wallbase.cc/rozne/wallpaper-343465.jpg",
 			"http://wallpapers.wallbase.cc/rozne/wallpaper-599766.jpg" };
 
-	// references to our images
-	private Integer[] mThumbIds = { R.drawable.btn_plus, R.drawable.btn_plus,
-			R.drawable.btn_plus, R.drawable.btn_plus, R.drawable.btn_plus,
-			R.drawable.btn_plus, R.drawable.btn_plus
-
-	};
 }
