@@ -1,23 +1,40 @@
 package br.com.imageflow.adapter;
 
+import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import br.com.imageflow.R;
+import br.com.imageflow.application.ImageApplicationImpl;
 
 import com.squareup.picasso.Picasso;
 
 public class ImageAdapter extends BaseAdapter {
-	private Context mContext;
+	
+	private Context context;
+	private String longPressItem;
+	private List<String> list;
+	private View longPresseItemView;
+	
+	public View getLongPresseItemView() {
+		return longPresseItemView;
+	}
 
-	public ImageAdapter(Context c) {
-		mContext = c;
+	public ImageAdapter(Context context, List list) {
+		this.context = context;
+		this.list = list;
 	}
 
 	public int getCount() {
@@ -68,21 +85,60 @@ public class ImageAdapter extends BaseAdapter {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View gridView;
-		LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+		View view;
+		LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 		
 		if(convertView == null){
-			gridView = new View(mContext);
-			gridView = inflater.inflate(R.layout.row_grid, null);
-			ImageView imageView = (ImageView)gridView.findViewById(R.id.image);
-			Picasso.with(mContext).load(mURLImages[generateRandom(0, 6)]).into(imageView);
+			view = new View(context);
+			view = inflater.inflate(R.layout.row_grid, null);
+			ImageView imageView = (ImageView) view.findViewById(R.id.image);
+			TextView textView = (TextView) view.findViewById(R.id.text);
+			
+			String url = list.get(position);
+			Picasso.with(context).load(url).into(imageView);
+			textView.setText(url);
 		}else{
-			gridView = (View) convertView;
+			view = (View) convertView;
 		}
 		
-		return gridView;
+		view.setOnLongClickListener(new OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				String text = ((TextView) v.findViewById(R.id.text)).getText().toString();
+				longPressItem = text;
+				longPresseItemView = v;
+				showDialog(text);
+				return false;
+			}
+		});
+		
+		return view;
 
 	}
+	
+	private void showDialog(String message) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		dialog.setTitle("");
+		dialog.setMessage("Adicionar aos favoritos?");
+		dialog.setNegativeButton("Cancelar", null);
+		dialog.setPositiveButton("OK", onOkPress);
+		dialog.create().show();
+		
+	}
+
+	OnClickListener onOkPress = new OnClickListener() {
+		public void onClick(DialogInterface dialog, int which) {
+			ImageApplicationImpl application = ImageApplicationImpl.getInstance();
+			application.add(longPressItem);
+			notifyDataSetChanged();
+			Toast.makeText(context, application.list().size(), Toast.LENGTH_SHORT).show();
+		}
+	};
+	
+	OnClickListener onCancelPress = new OnClickListener() {
+		public void onClick(DialogInterface dialog, int which) {
+			Toast.makeText(context, "Cancel", Toast.LENGTH_SHORT).show();
+		}
+	};
 
 	public static int generateRandom(int min, int max) {
 		Random random = new Random();
